@@ -36,7 +36,7 @@ const newFavoriteFood = 'Ice Cream';
 favoriteFoods.push(newFavoriteFood);
 foodElement.innerHTML += `<br>${favoriteFoods}`;
 
-// Remove the first element in the favorite food array.
+// Remove the first element.
 favoriteFoods.shift();
 
 //Append the array.
