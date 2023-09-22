@@ -3,11 +3,9 @@
 /* Step 1 - Setup type tasks - no code required */
 
 /* Step 2 - Variables */
-const fullName = 'Patricia Juarez';
+const fullName = 'Raila Oliech';
 const currentYear = new Date().getFullYear();
 const profilePicture = 'images/profile.jpg';
-
-
 
 
 
@@ -16,7 +14,6 @@ const nameElement = document.getElementById('name');
 const foodElement = document.getElementById('food');
 const yearElement = document.querySelector('#year');
 
-// Use any viable method to get the profile image element and store it in a variable named "imageElement"
 const imageElement = document.querySelector('img'); 
 
 
@@ -31,22 +28,22 @@ imageElement.setAttribute('alt', `Profile image of ${fullName}`);
 
 /* Step 5 - Array */
 
+const favoriteFoods = ['Banana', 'Chips', 'Chicken', 'Mangos','Potato salad'];
 
-const favoriteFoods = ['Pizza', ['Chocolate', 'Chicken'], ['Chips', 'crips', 'Potato salad'],['Banana', 'Orange', 'Mangos'],['Fish','Pork', 'peas']];
-foodElement.innerHTML = favoriteFoods.join('<br>');
+document.querySelector('#food').textContent = favoriteFoods;
 const newFavoriteFood = 'Ice Cream';
-
-// Add the newFavoriteFood to your favorite food array
+// append ice cream
 favoriteFoods.push(newFavoriteFood);
+foodElement.innerHTML += `<br>${favoriteFoods}`;
 
-// Remove the first element in the favorite food array
+// Remove the first element in the favorite food array.
 favoriteFoods.shift();
 
-// Remove the last element in the favorite food array
+//Append the array.
+foodElement.innerHTML += `<br>${favoriteFoods}`;
+
+// Remove the last element in the favorite food array.
 favoriteFoods.pop();
-foodElement.innerHTML = favoriteFoods.join('<br>');
 
-
-
-
-
+// array output.
+foodElement.innerHTML += `<br>${favoriteFoods}`;
