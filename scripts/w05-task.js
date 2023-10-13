@@ -84,5 +84,5 @@ document.querySelector("#sortBy").addEventListener("change", () => {
   sortBy(templeList);
 });
 
-// Test your code by calling getTemples function at the end of the JavaScript file
+// Test code
 getTemples();
