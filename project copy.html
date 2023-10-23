@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Country Info Finder</title>
+    <style>
+        /* Your existing CSS styles here */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Country Info Finder</h1>
+        <input id="nameInput" type="text" placeholder="Enter Your Name">
+        <input id="countryInput" type="text" placeholder="Enter Country Name">
+        <button id="submitButton">Find Information</button>
+        <div id="output"></div>
+        <div id="options">
+            <button id="continueButton">More Details</button>
+            <button id="quitButton">Quit</button>
+        </div>
+        <div id="additionalInfo">
+            <h3>Additional Information</h3>
+            <div id="additionalOutput"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nameInput = document.getElementById('nameInput');
+            const countryInput = document.getElementById('countryInput');
+            const submitButton = document.getElementById('submitButton');
+            const output = document.getElementById('output');
+            const continueButton = document.getElementById('continueButton');
+            const quitButton = document.getElementById('quitButton');
+            const options = document.getElementById('options');
+            const additionalInfo = document.getElementById('additionalInfo');
+            const additionalOutput = document.getElementById('additionalOutput');
+
+            let userData = {};
+            let previousCountryData = null;
+
+            submitButton.addEventListener('click', () => {
+                const name = nameInput.value.trim();
+                const country = countryInput.value.trim();
+
+                if (name && country) {
+                    // Fetch country data from the REST Countries API
+                    fetch(`https://restcountries.com/v3.1/name/${country}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Country not found or API error.');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            const countryData = data[0];
+
+                           
+                            previousCountryData = countryData;
+
+                          
+                            output.innerHTML = `
+                                <h2>Hello, ${name}!</h2>
+                                <h3>Country Information for ${countryData.name.common}:</h3>
+                                <p>Capital: ${countryData.capital}</p>
+                                <p>Area: ${countryData.area} km²</p>
+                                <p>Population: ${countryData.population}</p>
+                                <p>Region: ${countryData.region}</p>
+                                <p>Subregion: ${countryData.subregion}</p>
+                                <p>Government: ${countryData.government}</p>
+                                <p>Calling Codes: +${previousCountryData.callingCode}</p>
+                                <p>Top-Level Domain: ${countryData.tld}</p>
+                                <!-- Add more country details here -->
+                            `;
+
+                            // Show the options to continue or quit
+                            options.style.display = 'block';
+                        })
+                        .catch(error => {
+                            output.innerHTML = `Error: ${error.message}`;
+                            options.style.display = 'none';
+                        });
+                }
+            });
+
+            continueButton.addEventListener('click', () => {
+                if (previousCountryData) {
+                    // Display the previous country's additional details
+                    additionalOutput.innerHTML = `
+                        <h3>Additional Information for ${previousCountryData.name.common}:</h3>
+                        <p>Neighboring Countries: ${previousCountryData.borders.join(', ')}</p>
+                        <p>Time Zones: ${previousCountryData.timezones.join(', ')}</p>
+                        <p>Flag: <img src="${previousCountryData.flags.png}" alt="${previousCountryData.name.common} flag"></p>
+                        <!-- Add more country details here -->
+                    `;
+
+                   
+                    additionalInfo.style  = 'block';
+                } else {
+                    output.innerHTML = 'No previous country data available. Please find a country first.';
+                    additionalInfo.style.display = 'none';
+                }
+
+                
+                options.style.display = 'block';
+            });
+
+            quitButton.addEventListener('click', () => {
+            
+                userData = {};
+                previousCountryData = null;
+                nameInput.value = '';
+                countryInput.value = '';
+                output.innerHTML = '';
+                additionalOutput.innerHTML = '';
+                options.style.display = 'none';
+                additionalInfo.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
