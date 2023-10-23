@@ -1,8 +1,8 @@
-import { fetchData } from './fetchData.js'; // ES module import
+import { fetchData } from './fetchData.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Criteria: Conditional Branching
-    // Initialize HTML elements
+   
+    //  HTML elements
     const nameInput = document.getElementById('nameInput');
     const countryInput = document.getElementById('countryInput');
     const submitButton = document.getElementById('submitButton');
@@ -16,22 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let userData = {};
     let previousCountryData = null;
 
-    // Criteria: Array Methods (map used for formatting)
+   
     // Event listener for the "Find Information" button
     submitButton.addEventListener('click', () => {
         const name = nameInput.value.trim();
         const country = countryInput.value.trim();
 
         if (name && country) {
-            // Criteria: Fetch - JSON
+            
             // Fetch country data from the REST Countries API using a separate module
             fetchData(country)
                 .then(countryData => {
                     if (countryData) {
                         previousCountryData = countryData;
 
-                        // Criteria: Template Literals
-                        // Display country information using template literals
+                        //Template Literals
                         output.innerHTML = `
                             <h2>Hello, ${name}!</h2>
                             <h3>Country Information for ${countryData.name.common}:</h3>
@@ -61,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     continueButton.addEventListener('click', () => {
         if (previousCountryData) {
             // Criteria: Array Methods
-            // Format neighboring countries and time zones using array methods
+            
             const neighboringCountries = previousCountryData.borders.map(country => country).join(', ');
             const timeZones = previousCountryData.timezones.map(zone => zone).join(', ');
             additionalOutput.innerHTML = `
